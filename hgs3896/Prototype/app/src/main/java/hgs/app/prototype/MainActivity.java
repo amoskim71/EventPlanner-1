@@ -4,11 +4,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -29,16 +26,18 @@ public class MainActivity extends AppCompatActivity {
         btn_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pickFile();
+                Intent i = new Intent(MainActivity.this, MediaPickerActivity.class);
+                startActivityForResult(i, 0);
             }
         });
     }
 
+    @Deprecated
     protected void pickFile() {
         Intent requestIntent = new Intent();
         requestIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         requestIntent.setAction(Intent.ACTION_GET_CONTENT);
-        requestIntent.setType("image/* | video/*");
+        requestIntent.setType("image/* | video/* | application/vnd.google.panorama360+jpg");
 
         final String title = getResources().getString(R.string.pick_chooser_title);
 
@@ -86,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             Snackbar.make(findViewById(R.id.myCoordinatorLayout), R.string.nothing_selected_msg, Snackbar.LENGTH_SHORT).show();
             return;
         } else {
-            ArrayList<Uri> uriList = new ArrayList<>();
+            ArrayList<Uri> uriList = data.getParcelableArrayListExtra("selections");
             // Get the file's content URI from the incoming Intent
             if(data.getClipData() != null){
                 int count = data.getClipData().getItemCount();
