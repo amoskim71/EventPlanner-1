@@ -2,7 +2,7 @@
 
 ## Need to Implement (Task List)
 - [x] Support an easy-to-share button to share media files such as photos and videos as convinient as possible.
-    > ~~Take advantage of the Android default share utility.~~ Adopt the custom multiple image selection library.
+    > Adopt the custom multiple image selection library.
 - [ ] Sync with the default Android calendar app
     > Request to Google Calendar and get the data
 - [ ] Pinpoint a marker on a map either by the current location or by a random choice of an user.
@@ -10,8 +10,9 @@
 
 ## Details in Code
 
-### Pick multiple files
+### Pick multiple files - deprecated (since we use the image picking library(FishBun))
 ```java
+@depreacted
 protected void pickFile() {
     Intent requestIntent = new Intent();
     requestIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true); //  Set a flag that it is multiple selections.
