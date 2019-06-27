@@ -1,5 +1,8 @@
 # Prototype for our app(Event Planner)
 
+><img width="40%" height="40%" src="./stillcut1.png"/>
+><img width="40%" height="40%" src="./stillcut2.png"/>
+
 ## Need to Implement (Task List)
 - [x] Support an easy-to-share button to share media files such as photos and videos as convinient as possible.
     > Adopt the custom multiple image selection library.
@@ -41,7 +44,7 @@ protected void shareFile(final ArrayList<Uri> dataURI){
 }
 ```
 
-## 3rd party libraries
+## 3rd party libraries that are being used.
 
 1. [Glide](https://github.com/bumptech/glide)
 > Glide is an image loading and caching library for Android focused on smooth scrolling.
