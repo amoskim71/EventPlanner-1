@@ -1,7 +1,12 @@
 # Prototype for our app(Event Planner)
 
+### Picking Images
 ><img width="40%" height="40%" src="./stillcut1.png"/>
 ><img width="40%" height="40%" src="./stillcut2.png"/>
+
+### Picking Videos
+><img width="40%" height="40%" src="./stillcut3.jpg"/>
+><img width="40%" height="40%" src="./stillcut4.jpg"/>
 
 ## Need to Implement (Task List)
 - [x] Support an easy-to-share button to share media files such as photos and videos as convinient as possible.

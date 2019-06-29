@@ -27,12 +27,12 @@ dependencies {
     /* Material Theme */
     api 'com.google.android.material:material:1.1.0-alpha07'
 
+    /* Matisse */
+    implementation 'com.zhihu.android:matisse:0.5.2-beta3'
+
     /* Glide */
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
-
-    /* FishBun */
-    implementation 'com.sangcomz:FishBun:0.9.1'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'

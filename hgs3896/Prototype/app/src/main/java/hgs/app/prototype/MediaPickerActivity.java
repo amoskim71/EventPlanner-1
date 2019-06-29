@@ -1,6 +1,7 @@
 package hgs.app.prototype;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -12,15 +13,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.sangcomz.fishbun.FishBun;
-import com.sangcomz.fishbun.adapter.image.impl.GlideAdapter;
-import com.sangcomz.fishbun.define.Define;
+import com.zhihu.matisse.Matisse;
+import com.zhihu.matisse.MimeType;
 
 import java.util.ArrayList;
 
+import hgs.app.prototype.support.Glide4Engine;
+
 public class MediaPickerActivity extends AppCompatActivity {
+
+    static private int REQUEST_CODE_CHOOSE = 1;
 
     ArrayList<Uri> path = new ArrayList<>();
     ImageView imgMain;
@@ -63,25 +66,26 @@ public class MediaPickerActivity extends AppCompatActivity {
             }
         });
 
-        FishBun.with(MediaPickerActivity.this)
-                .setImageAdapter(new GlideAdapter())
-                .setPickerCount(20) // Maximum number of selected photos
-                .setSelectedImages(path)
-                .setAlbumSpanCount(2, 3)
-                .setCamera(true)
-                .setButtonInAlbumActivity(true)
-                .startAlbum();
+        Matisse.from(MediaPickerActivity.this)
+                .choose(MimeType.ofAll())
+                .countable(true)
+                .maxSelectable(9)
+                .theme(R.style.Matisse_Dracula)
+                // .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
+                .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
+                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+                .thumbnailScale(0.85f)
+                .imageEngine(new Glide4Engine())
+                .forResult(REQUEST_CODE_CHOOSE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == Define.ALBUM_REQUEST_CODE){
-            if (resultCode == RESULT_OK) {
-                path = data.getParcelableArrayListExtra(Define.INTENT_PATH);
-                imageAdapter.changePath(path);
-            }
+        if(requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK){
+            path = (ArrayList<Uri>)Matisse.obtainResult(data);
+            imageAdapter.changePath(path);
         }
     }
 
