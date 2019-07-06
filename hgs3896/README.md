@@ -8,10 +8,13 @@
 ><img width="40%" height="40%" src="./stillcut3.jpg"/>
 ><img width="40%" height="40%" src="./stillcut4.jpg"/>
 
+### Using Calendar APIs
+><img src="./stillcut5.png"/>
+
 ## Need to Implement (Task List)
 - [x] Support an easy-to-share button to share media files such as photos and videos as convinient as possible.
     > Adopt the custom multiple image selection library.
-- [ ] Sync with the default Android calendar app
+- [x] Sync with the default Android calendar app
     > Request to Google Calendar and get the data
 - [ ] Pinpoint a marker on a map either by the current location or by a random choice of an user.
     > Use Kakao Map APIs or Kakao Navigation APIs.
@@ -53,6 +56,3 @@ protected void shareFile(final ArrayList<Uri> dataURI){
 
 1. [Glide](https://github.com/bumptech/glide)
 > Glide is an image loading and caching library for Android focused on smooth scrolling.
-
-2. [FishBun](https://github.com/sangcomz/FishBun)
-> FishBun is a simple, powerful image picker for Android.
