@@ -25,7 +25,7 @@ public class MediaPickerActivity extends AppCompatActivity {
 
     static private int REQUEST_CODE_CHOOSE = 1;
 
-    ArrayList<Uri> path = new ArrayList<>();
+    ArrayList<Uri> path;
     ImageView imgMain;
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
@@ -39,6 +39,8 @@ public class MediaPickerActivity extends AppCompatActivity {
 
         if(savedInstanceState != null){
             path = savedInstanceState.getParcelableArrayList("selections");
+        }else{
+            path = new ArrayList<>();
         }
 
         setContentView(R.layout.activity_picker);

@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private Button btn_share;
+    private Button btn_cal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this, MediaPickerActivity.class);
                 startActivityForResult(i, 0);
+            }
+        });
+
+        btn_cal = findViewById(R.id.btn_calendar);
+        btn_cal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, ScheduleActivity.class);
+                startActivity(i);
             }
         });
     }
