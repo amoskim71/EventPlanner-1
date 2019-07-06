@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Prototype</string>
     <string name="share_btn_name">Share</string>
+    <string name="cal_btn_name">Calendar</string>
     <string name="pick_chooser_title">Pick media to share</string>
-    <string name="share_chooser_title">Share this media with</string>
+    <string name="share_chooser_title">Share these media with</string>
     <string name="nothing_selected_msg">Nothing has been selected.</string>
     <array name="licenses">
         <item>Glide: https://github.com/bumptech/glide/blob/master/LICENSE</item>

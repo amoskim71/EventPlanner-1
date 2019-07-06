@@ -19,3 +19,6 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# If you use Glide as your image engine, add rules as Glide's README says. And add extra rule:
+-dontwarn com.squareup.picasso.**

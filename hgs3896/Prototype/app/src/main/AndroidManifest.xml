@@ -7,6 +7,10 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <!-- Calendar Reading & Writing -->
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+
     <dist:module dist:instant="true" />
 
     <application
@@ -35,6 +39,9 @@
                 <action android:name="android.intent.action.SEND_MULTIPLE"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
+        </activity>
+
+        <activity android:name=".ScheduleActivity">
         </activity>
     </application>
 

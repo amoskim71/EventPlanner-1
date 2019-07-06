@@ -3,6 +3,7 @@ package hgs.app.prototype;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private Button btn_share;
+    private Button btn_cal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,47 +32,45 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(i, 0);
             }
         });
-    }
 
-    @Deprecated
-    protected void pickFile() {
-        Intent requestIntent = new Intent();
-        requestIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-        requestIntent.setAction(Intent.ACTION_GET_CONTENT);
-        requestIntent.setType("image/* | video/* | application/vnd.google.panorama360+jpg");
-
-        final String title = getResources().getString(R.string.pick_chooser_title);
-
-        Intent chooser = Intent.createChooser(requestIntent, title);
-
-        if (requestIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(chooser, 0);
-        }
+        btn_cal = findViewById(R.id.btn_calendar);
+        btn_cal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, ScheduleActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     protected void shareFile(final ArrayList<Uri> dataURI){
         if(dataURI == null || dataURI.isEmpty())
             return;
 
-        Intent sendIntent = null;
+        final ContentResolver cr = getContentResolver();
+        final String title = getResources().getString(R.string.share_chooser_title);
+        Intent sendIntent;
 
-        if(dataURI.size() == 1){
+        if(cr.getType(dataURI.get(0)).contains("video")){
             sendIntent = new Intent(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_STREAM, dataURI.get(0));
-        }else{
-            sendIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
             sendIntent.putExtra(Intent.EXTRA_STREAM, dataURI);
+            sendIntent.setType("video/*");
+        }else{
+            sendIntent = new Intent(Intent.ACTION_SEND_MULTIPLE); // MimeTypes might be mixed.
+            sendIntent.putExtra(Intent.EXTRA_STREAM, dataURI);
+            sendIntent.setType("image/*");
         }
 
-        sendIntent.setType("image/* | video/*");
+        sendWithChooser(sendIntent, title);
+    }
 
-        final String title = getResources().getString(R.string.share_chooser_title);
-
+    // A helper function for starting a chooser intent
+    protected void sendWithChooser(Intent intent, String title){
         // Create intent to show the chooser dialog
-        Intent chooser = Intent.createChooser(sendIntent, title);
+        Intent chooser = Intent.createChooser(intent, title);
 
         // Verify the original intent will resolve to at least one activity
-        if (sendIntent.resolveActivity(getPackageManager()) != null) {
+        if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(chooser);
         }
     }
@@ -90,13 +90,11 @@ public class MainActivity extends AppCompatActivity {
             if(data.getClipData() != null){
                 int count = data.getClipData().getItemCount();
                 for (int i=0; i<count; i++){
-                    Uri imageUri = data.getClipData().getItemAt(i).getUri();
-                    uriList.add(imageUri);
+                    uriList.add(data.getClipData().getItemAt(i).getUri());
                 }
             }
             else if(data.getData() != null){
-                Uri imgUri = data.getData();
-                uriList.add(imgUri);
+                uriList.add(data.getData());
             }
 
             shareFile(uriList);
